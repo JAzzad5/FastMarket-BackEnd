@@ -1,8 +1,25 @@
-var mongoose = require('mongoose');
-var esquema = new mongoose.Schema(
+const { Schema, model } = require('mongoose');
+var esquema = new Schema(
     {
-        NombreCategoria: String
+        NombreCategoria:String,
+        ImagenCategoria:String,
+        Comercios:[{
+            NombreComercio:String,
+            ImagenComercio:String,
+            BannerComercio:String,
+            Calificacion: Number,
+            Direccion:String,
+            CostoEnvio:Number,
+            Horario:String,
+            Productos:[{
+                NombreProducto:String,
+                ImagenProducto:String,
+                Decripcion: String,
+                Precio:Number
+            }]
+        }]
+        
     }
 );
 
-module.exports = mongoose.model('categorias', esquema);
+module.exports = model('categorias', esquema );
