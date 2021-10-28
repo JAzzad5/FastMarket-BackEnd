@@ -129,13 +129,14 @@ router.get('/:nombreCategoria/:idComercio/:idProductos', function( req, res ){
     {"Comercios.$":true})
     .then( result =>{
         let productos = result[0].Comercios[0].Productos;
-        var productoSeleccionado = {};
+        let productoSeleccionado = "";
         productos.forEach(producto => {
             if (producto._id == req.params.idProductos){
                 this.productoSeleccionado = producto;
             }
         });
         res.send(this.productoSeleccionado);
+        this.productoSeleccionado ="";
         res.end();
     })
     .catch( error =>{
