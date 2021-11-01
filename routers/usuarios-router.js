@@ -22,7 +22,7 @@ router.get('/:idUsuario', function( req, res ){
         _id: req.params.idUsuario
     })
     .then(result=>{
-        res.send(result);
+        res.send(result[0]);
         res.end()
     })
     .catch(error=>{
