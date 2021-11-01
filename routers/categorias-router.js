@@ -32,9 +32,9 @@ router.get('/:idCategoria', function( req, res ){
 });
 
 //Obtener comercios de una categoria 
-router.get('/:idCategoria/comercios', function( req, res ){
+router.get('/:NombreCategoria/comercios', function( req, res ){
     categoria.find({
-        _id: req.params.idCategoria
+        NombreCategoria: req.params.NombreCategoria
     },
     {Comercios:true})
     .then( result =>{
@@ -102,6 +102,22 @@ router.post('/:nombreCategoria/:idComercio/agregarProducto', function( req, res 
     })
 });
 
+//Obtener un comercio
+router.get('/:nombreCategoria/:idComercio/', function( req, res ){
+    categoria.find({
+        NombreCategoria: req.params.nombreCategoria,
+        "Comercios._id": mongoose.Types.ObjectId(req.params.idComercio)
+    },
+    {"Comercios.$":true})
+    .then( result =>{
+        res.send(result[0]);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
 
 //Obtener productos de un comercio 
 router.get('/:nombreCategoria/:idComercio/productos', function( req, res ){
@@ -111,7 +127,7 @@ router.get('/:nombreCategoria/:idComercio/productos', function( req, res ){
     },
     {"Comercios.$":true})
     .then( result =>{
-        res.send(result[0]);
+        res.send(result[0].Comercios[0].Productos);
         res.end();
     })
     .catch( error =>{
