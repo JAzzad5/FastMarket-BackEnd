@@ -10,8 +10,13 @@ router.get('/', function( req, res ){
     .populate('usuario')
     .populate(
         {
-            path:'productos',
-            populate:{path:'_id'}
+            path:'productos',populate:{
+                path:'_id',
+                populate:{
+                    path:'Comercio',
+                    select: 'NombreComercio ImagenComercio Direccion'
+                }
+            }
         }
     )
     .then( result =>{
