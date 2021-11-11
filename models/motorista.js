@@ -1,8 +1,21 @@
-var mongoose = require('mongoose');
-var esquema = new mongoose.Schema(
+const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose');
+const pruebaOrden = require('../models/pruebaOrden');
+
+var esquema =  new Schema(
     {
-        Nombre: String
+        Nombre: String,
+        Contraseña: String,
+        Correo: String,
+        Estado: String,
+        HistorialOrdenes: [{
+            _id:[{type: mongoose.Schema.Types.ObjectId, ref:'pruebaOrden'}]
+        }],
+        ImagenMotorista: String,
+        Observacion: String,
+        OrdenesTomadas: [{type: mongoose.Schema.Types.ObjectId, ref:'pruebaOrden'}],
+        Telefono: String
     }
 );
 
-module.exports = mongoose.model('motoristas', esquema);
+module.exports = model('motoristas', esquema);

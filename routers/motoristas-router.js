@@ -6,6 +6,20 @@ var mongoose = require('mongoose');
 //Obtener Motorista
 router.get('/', function( req, res ){
     motorista.find()
+    .populate(
+        {
+            path:'HistorialOrdenes',
+            populate:{
+                path:'_id',
+                populate:{
+                    path:'productos',
+                    populate:{
+                        path: '_id'
+                    }
+                }
+            }
+        }
+    )
     .then( result =>{
         res.send(result);
         res.end();
@@ -16,5 +30,5 @@ router.get('/', function( req, res ){
     });
 });
 
-
 module.exports = router;
+
