@@ -87,7 +87,7 @@ router.post('/:nombreCategoria/:idComercio/agregarProducto', function( req, res 
                 _id: mongoose.Types.ObjectId(),
                 NombreProducto: req.body.NombreProducto,
                 ImagenProducto: req.body.ImagenProducto,
-                Decripcion: req.body.Decripcion,
+                Descripcion: req.body.Descripcion,
                 Precio: req.body.Precio
             }
         }

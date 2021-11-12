@@ -14,7 +14,7 @@ var esquema = new Schema(
             Productos:[{
                 NombreProducto:String,
                 ImagenProducto:String,
-                Decripcion: String,
+                Descripcion: String,
                 Precio:Number
             }]
         }]
