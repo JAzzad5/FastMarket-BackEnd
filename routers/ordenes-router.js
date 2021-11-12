@@ -7,7 +7,7 @@ const pruebaOrden = require('../models/pruebaOrden');
 //obtener todas las ordenes
 router.get('/', function( req, res ){
     pruebaOrden.find()
-    .populate({path:'usuario', select: 'NombreUsuario Ubicacion'})
+    .populate({path:'usuario'})
     .populate('motorista')
     .populate(
         {
@@ -15,7 +15,7 @@ router.get('/', function( req, res ){
                 path:'_id',
                 populate:{
                     path:'Comercio',
-                    select: 'NombreComercio ImagenComercio Direccion'
+                    select: 'NombreComercio ImagenComercio Direccion Ubicacion'
                 }
             }
         }
@@ -32,9 +32,9 @@ router.get('/', function( req, res ){
 
 
 //obtener ordenes de usuario
-router.get('/:idUsuario', function( req, res ){
+router.get('/usuario/:idUsuario', function( req, res ){
     pruebaOrden.find({usuario: mongoose.Types.ObjectId(req.params.idUsuario)})
-    .populate({path:'usuario', select: 'NombreUsuario Ubicacion'})
+    .populate({path:'usuario'})
     .populate('motorista')
     .populate(
         {
@@ -43,7 +43,7 @@ router.get('/:idUsuario', function( req, res ){
                 path:'_id',
                 populate:{
                     path:'Comercio',
-                    select: 'NombreComercio ImagenComercio Direccion'
+                    select: 'NombreComercio ImagenComercio Direccion Ubicacion'
                 }
             }
         }
@@ -61,7 +61,7 @@ router.get('/:idUsuario', function( req, res ){
 //obtener ordenes de motoristas
 router.get('/motorista/:idMotorista', function( req, res ){
     pruebaOrden.find({motorista: mongoose.Types.ObjectId(req.params.idMotorista)})
-    .populate({path:'usuario', select: 'NombreUsuario Ubicacion'})
+    .populate({path:'usuario'})
     .populate({path:'motorista', select: 'Nombre'})
     .populate(
         {
@@ -70,7 +70,7 @@ router.get('/motorista/:idMotorista', function( req, res ){
                 path:'_id',
                 populate:{
                     path:'Comercio',
-                    select: 'NombreComercio ImagenComercio Direccion'
+                    select: 'NombreComercio ImagenComercio Direccion Ubicacion CostoEnvio'
                 }
             }
         }
@@ -89,7 +89,7 @@ router.get('/motorista/:idMotorista', function( req, res ){
 //obtener ordenes de disponibles
 router.get('/disponibles', function( req, res ){
     pruebaOrden.find({motorista:null})
-    .populate({path:'usuario', select: 'NombreUsuario Ubicacion'})
+    .populate({path:'usuario'})
     .populate(
         {
             path:'productos',
@@ -97,7 +97,7 @@ router.get('/disponibles', function( req, res ){
                 path:'_id',
                 populate:{
                     path:'Comercio',
-                    select: 'NombreComercio ImagenComercio Direccion'
+                    select: 'NombreComercio ImagenComercio Direccion Ubicacion CostoEnvio'
                 }
             }
         }
@@ -112,5 +112,31 @@ router.get('/disponibles', function( req, res ){
     });
 });
 
+//obtener ordenes por id
+router.get('/:id', function( req, res ){
+    pruebaOrden.find({_id: mongoose.Types.ObjectId(req.params.id)})
+    .populate({path:'usuario'})
+    .populate('motorista')
+    .populate(
+        {
+            path:'productos',
+            populate:{
+                path:'_id',
+                populate:{
+                    path:'Comercio',
+                    select: 'NombreComercio ImagenComercio Direccion Ubicacion CostoEnvio'
+                }
+            }
+        }
+    )
+    .then( result =>{
+        res.send(result);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
 
 module.exports = router;
