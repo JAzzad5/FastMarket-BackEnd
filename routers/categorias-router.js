@@ -61,7 +61,7 @@ router.post('/:nombreCategoria/agregarComercio', function( req, res ){
                 Calificacion: req.body.Calificacion, 
                 Direccion: req.body.Direccion, 
                 CostoEnvio: req.body.CostoEnvio, 
-                Horario: req.body.Horario, 
+                Horario: req.body.HoraInicio + " - " + req.body.HoraFinal, 
                 Productos:[]
             }
         }
