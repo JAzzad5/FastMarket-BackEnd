@@ -1,23 +1,10 @@
 const { Schema, model } = require('mongoose');
+const comercios = require('../models/comercios');
 var esquema = new Schema(
     {
         NombreCategoria:String,
         ImagenCategoria:String,
-        Comercios:[{
-            NombreComercio:String,
-            ImagenComercio:String,
-            BannerComercio:String,
-            Calificacion: Number,
-            Direccion:String,
-            CostoEnvio:Number,
-            Horario:String,
-            Productos:[{
-                NombreProducto:String,
-                ImagenProducto:String,
-                Descripcion: String,
-                Precio:Number
-            }]
-        }]
+        Comercios: [{ type: Schema.Types.ObjectId, ref: 'comercios' }],
         
     }
 );

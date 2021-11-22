@@ -11,6 +11,11 @@ var esquema = new Schema(
         CostoEnvio:Number,
         Horario:String,
         Productos: [{ type: Schema.Types.ObjectId, ref: 'pruebaProducto' }],
+        Ubicacion: {
+            lat: Number,
+            lon: Number,
+            NombreUbicacion: String
+        }
         
     }
 );

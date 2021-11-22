@@ -6,6 +6,10 @@ const categoria = require('../models/categoria');
 //Obtener todas las categorias 
 router.get('/', function( req, res ){
     categoria.find()
+    .populate({
+        path: 'Comercios',
+        populate: {path: 'Productos'}
+    })
     .then( result =>{
         res.send(result);
         res.end();
@@ -20,6 +24,10 @@ router.get('/', function( req, res ){
 router.get('/:idCategoria', function( req, res ){
     categoria.find({
         _id: req.params.idCategoria
+    })
+    .populate({
+        path: 'Comercios',
+        populate: {path: 'Productos'}
     })
     .then( result =>{
         res.send(result);
@@ -37,6 +45,10 @@ router.get('/:NombreCategoria/comercios', function( req, res ){
         NombreCategoria: req.params.NombreCategoria
     },
     {Comercios:true})
+    .populate({
+        path: 'Comercios',
+        populate: {path: 'Productos'}
+    })
     .then( result =>{
         res.send(result);
         res.end();
@@ -48,47 +60,13 @@ router.get('/:NombreCategoria/comercios', function( req, res ){
 });
 
 //Insertar comercio de una categoria 
-router.post('/:nombreCategoria/agregarComercio', function( req, res ){
+router.post('/:nombreCategoria/agregarComercio/:idComercio', function( req, res ){
     categoria.updateOne({
         NombreCategoria: req.params.nombreCategoria
     },{
         $push:{
             Comercios:{
-                _id: mongoose.Types.ObjectId(),
-                NombreComercio: req.body.NombreComercio, 
-                ImagenComercio: req.body.ImagenComercio, 
-                BannerComercio: req.body.BannerComercio, 
-                Calificacion: req.body.Calificacion, 
-                Direccion: req.body.Direccion, 
-                CostoEnvio: req.body.CostoEnvio, 
-                Horario: req.body.HoraInicio + " - " + req.body.HoraFinal, 
-                Productos:[]
-            }
-        }
-    })
-    .then(result=>{
-        res.send(result);
-        res.end()
-    })
-    .catch(error=>{
-        res.send(error);
-        res.end()
-    })
-});
-
-//Insertar productos de una comercio 
-router.post('/:nombreCategoria/:idComercio/agregarProducto', function( req, res ){
-    categoria.updateOne({
-        NombreCategoria: req.params.nombreCategoria,
-        "Comercios._id": mongoose.Types.ObjectId(req.params.idComercio)
-    },{
-        $push:{
-            "Comercios.$.Productos":{
-                _id: mongoose.Types.ObjectId(),
-                NombreProducto: req.body.NombreProducto,
-                ImagenProducto: req.body.ImagenProducto,
-                Descripcion: req.body.Descripcion,
-                Precio: req.body.Precio
+                _id: mongoose.Types.ObjectId(req.params.idComercio)
             }
         }
     })
