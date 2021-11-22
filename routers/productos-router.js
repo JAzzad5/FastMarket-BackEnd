@@ -2,12 +2,24 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-const prodcutos = require('../models/pruebaProducto');
+const productos = require('../models/pruebaProducto');
 
+//Obtener un producto
+router.get('/:idProducto', function( req, res ){
+    productos.find({_id: req.params.idProducto})
+    .then( result =>{
+        res.send(result[0]);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
 
 //añadir producto
 router.post('/:idComercio/nuevo', function( req, res ){
-    prodcutos.insertMany({
+    productos.insertMany({
         NombreProducto: req.body.NombreProducto,
         ImagenProducto: req.body.ImagenProducto,
         Descripcion: req.body.Descripcion,

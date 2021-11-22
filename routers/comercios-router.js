@@ -67,4 +67,39 @@ router.post('/:idComercio/agregarProducto/:idProducto', function( req, res ){
     })
 });
 
+
+
+//Obtener un comercio
+router.get('/:idComercio', function( req, res ){
+    comercios.find({_id: req.params.idComercio})
+    .then( result =>{
+        res.send(result[0]);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
+
+
+//Obtener productos de un comercio 
+router.get('/:idComercio/productos', function( req, res ){
+    comercios.find({
+        _id: req.params.idComercio
+    },
+    {Productos:true})
+    .populate({
+        path: 'Productos'
+    })
+    .then( result =>{
+        res.send(result[0]);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
+
 module.exports = router;

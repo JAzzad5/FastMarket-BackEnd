@@ -68,6 +68,13 @@ router.get('/:idUsuario/carrito', function( req, res ){
     usuario.find({
         _id: req.params.idUsuario
     },{ CarritoCompras: true})
+    .populate({
+        path: 'CarritoCompras',
+        populate:{
+            path:'IdProducto',
+            populate: {path:'Comercio'}
+        }   
+    })
     .then(result=>{
         res.send(result);
         res.end()
@@ -78,11 +85,24 @@ router.get('/:idUsuario/carrito', function( req, res ){
     })
 });
 
-//Obtener el carrito de compras un usuario
+//Obtener el Historial de ordenes de un usuario
 router.get('/:idUsuario/historial', function( req, res ){
     usuario.find({
         _id: req.params.idUsuario
     },{ HistorialOrdenes: true})
+    .populate({
+        path:'HistorialOrdenes',
+        populate: {
+            path: 'productos',
+            populate: '_id'
+        }
+    })
+    .populate({
+        path:'HistorialOrdenes',
+        populate: {
+            path: 'motorista',
+        }
+    })
     .then(result=>{
         res.send(result);
         res.end()

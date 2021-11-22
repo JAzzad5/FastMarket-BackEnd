@@ -1,3 +1,6 @@
+
+const pruebaProducto = require('../models/pruebaProducto');
+const pruebaOrden = require('../models/pruebaOrden');
 const { Schema, model } = require('mongoose');
 var esquema = new Schema(
     {
@@ -9,24 +12,10 @@ var esquema = new Schema(
         Ubicacion: { X: String, Y: String, NombreUbicacion: String},
         Tarjeta: { NombreTarjeta:String, Numero:String, FechaVencimiento: String, CVV:String },
         CarritoCompras: [{
-            Comercio:String,
-            Producto:String,
-            Cantidad:Number,
-            Subtotal:Number,
-            CostoEnvio:Number,
-            Total:Number,
+            IdProducto: [{ type: Schema.Types.ObjectId, ref: 'pruebaProducto' }],
+            Cantidad: Number
         }],
-        HistorialOrdenes:[{
-            Comercio:String,
-            Producto:String,
-            Cantidad:Number,
-            Subtotal:Number,
-            CostoEnvio:Number,
-            Total:Number,
-            Id_Motorista:String,
-            Direccion:String,
-            Estado:String,
-        }],
+        HistorialOrdenes:[{ type: Schema.Types.ObjectId, ref: 'pruebaOrden' }],
         Estado: String
         
     }
