@@ -124,6 +124,7 @@ router.put('/:idUsuario/perfil', function( req, res ){
             Telefono: req.body.Telefono,
             Contraseña: req.body.Contraseña,
             ImagenUsuario: req.body.ImagenUsuario,
+            Estado: req.body.Estado,
             }
     })
     .then(result=>{
