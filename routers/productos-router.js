@@ -36,4 +36,27 @@ router.post('/:idComercio/nuevo', function( req, res ){
     })
 });
 
+//Actualizar producto
+router.put('/:idProducto/editar', function( req, res ){
+    productos.updateOne({
+        _id: req.params.idProducto
+    },{
+        $set:{
+            NombreProducto: req.body.NombreProducto,
+            ImagenProducto: req.body.ImagenProducto,
+            Descripcion : req.body.Descripcion ,
+            Precio: req.body.Precio
+            }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
+
 module.exports = router;

@@ -102,4 +102,29 @@ router.get('/:idComercio/productos', function( req, res ){
     });
 });
 
+//Actualizar datos generales del comercio
+router.put('/:idComercio/editar', function( req, res ){
+    comercios.updateOne({
+        _id: req.params.idComercio
+    },{
+        $set:{
+            NombreComercio : req.body.NombreComercio,
+            ImagenComercio : req.body.ImagenComercio,
+            BannerComercio : req.body.BannerComercio,
+            Calificacion : req.body.Calificacion,
+            Direccion : req.body.Direccion,
+            CostoEnvio : req.body.CostoEnvio,
+            Horario : req.body.HoraInicio + " - " + req.body.HoraFinal
+            }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
 module.exports = router;
