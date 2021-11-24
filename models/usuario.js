@@ -12,7 +12,7 @@ var esquema = new Schema(
         Ubicacion: { X: String, Y: String, NombreUbicacion: String},
         Tarjeta: { NombreTarjeta:String, Numero:String, FechaVencimiento: String, CVV:String },
         CarritoCompras: [{
-            IdProducto: [{ type: Schema.Types.ObjectId, ref: 'pruebaProducto' }],
+            _id: {type: Schema.Types.ObjectId, ref: 'pruebaProducto'},
             Cantidad: Number
         }],
         HistorialOrdenes:[{ type: Schema.Types.ObjectId, ref: 'pruebaOrden' }],

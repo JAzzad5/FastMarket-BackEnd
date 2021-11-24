@@ -71,7 +71,7 @@ router.get('/:idUsuario/carrito', function( req, res ){
     .populate({
         path: 'CarritoCompras',
         populate:{
-            path:'IdProducto',
+            path:'_id',
             populate: {path:'Comercio'}
         }   
     })
@@ -192,13 +192,8 @@ router.post('/:idUsuario/agregarProducto', function( req, res ){
     },{
         $push:{
             CarritoCompras:{
-                _id: mongoose.Types.ObjectId(),
-                Comercio: req.body.Comercio,
-                Producto: req.body.Producto,
+                _id: mongoose.Types.ObjectId(req.body._id),
                 Cantidad: req.body.Cantidad,
-                Subtotal: req.body.Subtotal,
-                CostoE: req.body.Costo,
-                Total: req.body.Total,
             }
         }
     })
