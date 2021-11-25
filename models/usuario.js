@@ -9,7 +9,7 @@ var esquema = new Schema(
         Telefono: String,
         Contraseña: String,
         ImagenUsuario: String,
-        Ubicacion: { X: String, Y: String, NombreUbicacion: String},
+        Ubicacion: { lat: String, lon: String, NombreUbicacion: String},
         Tarjeta: { NombreTarjeta:String, Numero:String, FechaVencimiento: String, CVV:String },
         CarritoCompras: [{
             _id: {type: Schema.Types.ObjectId, ref: 'pruebaProducto'},

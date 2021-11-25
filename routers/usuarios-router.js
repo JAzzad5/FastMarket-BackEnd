@@ -145,8 +145,8 @@ router.put('/:idUsuario/ubicacion', function( req, res ){
     },{
         $set:{
             Ubicacion:{
-                X: req.body.X,
-                Y: req.body.Y,
+                lat: req.body.lat,
+                lon: req.body.lon,
                 NombreUbicacion: req.body.NombreUbicacion
             }
         }
@@ -246,8 +246,8 @@ router.post('/nuevo', function( req, res ){
         Contraseña: req.body.Contraseña,
         ImagenUsuario:"",
         Ubicacion: {
-            X:"",
-            Y:"",
+            lat:"",
+            location:"",
             NombreUbicacion: ""
         },
         Tarjeta: {
