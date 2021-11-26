@@ -139,4 +139,49 @@ router.get('/:id', function( req, res ){
     });
 });
 
+let date = new Date()
+let dia = date.getDate()
+let mes = date.getMonth() + 1
+let anio = date.getFullYear()
+
+// Añadir nueva orden 
+router.post('/nuevaOrden', function( req, res ){
+    pruebaOrden.insertMany({
+        productos: [],
+        usuario: mongoose.Types.ObjectId(req.body.usuario),
+        fecha: (dia + "/" + mes + "/" + anio),
+        motorista: null,
+        estado: "Pendiente"
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
+//Añadir los productos de la orden
+router.post('/:idOrden/agregarProducto', function( req, res ){
+    pruebaOrden.updateOne({
+        _id: req.params.idOrden,
+    },{
+        $push:{
+            productos:{
+                _id: mongoose.Types.ObjectId(req.body._id),
+                Cantidad: req.body.Cantidad
+            }
+        }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
 module.exports = router;

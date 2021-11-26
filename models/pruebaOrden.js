@@ -7,13 +7,13 @@ const motoristas = require('../models/motorista');
 var esquema = new Schema(
     {
         productos: [{
-            cantidad: Number,
-            _id:  [{ type: Schema.Types.ObjectId, ref: 'pruebaProducto' }],
+            Cantidad: Number,
+            _id:  { type: Schema.Types.ObjectId, ref: 'pruebaProducto' },
         }],
-        usuario: [{ type: Schema.Types.ObjectId, ref: 'usuarios' }],
+        usuario: {type: Schema.Types.ObjectId, ref: 'usuarios' },
         fecha: String,
         motorista: [{ type: Schema.Types.ObjectId, ref: 'motoristas' }],
-        
+        estado: String
     }
 );
 

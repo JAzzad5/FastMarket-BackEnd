@@ -208,22 +208,13 @@ router.post('/:idUsuario/agregarProducto', function( req, res ){
 });
 
 //Añadir al historial de ordenes del usuario
-router.post('/:idUsuario/agregarOrdenHistorial', function( req, res ){
+router.post('/:idUsuario/agregarOrdenHistorial/:idOrden', function( req, res ){
     usuario.updateOne({
         _id: req.params.idUsuario
     },{
         $push:{
             HistorialOrdenes:{
-                _id: mongoose.Types.ObjectId(),
-                Comercio: req.body.Comercio,
-                Producto: req.body.Producto,
-                Cantidad: req.body.Cantidad,
-                Subtotal: req.body.Subtotal,
-                CostoEnvio: req.body.CostoEnvio,
-                Total: req.body.Total,
-                Id_Motorista: req.body.Id_Motorista,
-                Direccion: req.body.Direccion,
-                Estado: req.body.Estado,
+                _id: mongoose.Types.ObjectId(req.params.idOrden)
             }
         }
     })
@@ -269,5 +260,25 @@ router.post('/nuevo', function( req, res ){
         res.end()
     })
 });
+
+// Limpiar Carrito del usuario
+router.put('/:idUsuario/limpiarCarrito', function( req, res ){
+    usuario.updateOne({
+        _id: req.params.idUsuario
+    },{
+        $set:{
+            CarritoCompras:[]
+        }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
 
 module.exports = router;
