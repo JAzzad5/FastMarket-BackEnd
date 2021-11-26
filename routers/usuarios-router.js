@@ -238,7 +238,7 @@ router.post('/nuevo', function( req, res ){
         ImagenUsuario:"",
         Ubicacion: {
             lat:"",
-            location:"",
+            lon:"",
             NombreUbicacion: ""
         },
         Tarjeta: {
