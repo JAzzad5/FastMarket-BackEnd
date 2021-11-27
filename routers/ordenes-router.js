@@ -184,4 +184,42 @@ router.post('/:idOrden/agregarProducto', function( req, res ){
         res.end()
     })
 });
+
+//tomar orden
+router.put('/:idOrden/:idMotorista/tomarOrden', function( req, res ){
+    pruebaOrden.updateOne({
+        _id: req.params.idOrden
+    },{
+        $set:{
+            motorista: mongoose.Types.ObjectId(req.params.idMotorista),
+        }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
+//cambiar estado de la orden
+router.put('/:idOrden/:estado/cambiarEstado', function( req, res ){
+    pruebaOrden.updateOne({
+        _id: req.params.idOrden
+    },{
+        $set:{
+            estado: req.params.estado,
+        }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
 module.exports = router;

@@ -58,5 +58,24 @@ router.get('/:idMotorista', function( req, res ){
     });
 });
 
+//Cambiar Observacion del motorista
+router.put('/:idMotorista/:Observacion/cambiarObservacion', function( req, res ){
+    motorista.updateOne({
+        _id: req.params.idMotorista
+    },{
+        $set:{
+            Observacion: req.params.Observacion,
+        }
+    })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
 module.exports = router;
 
