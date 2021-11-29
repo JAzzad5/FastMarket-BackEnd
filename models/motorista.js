@@ -14,7 +14,8 @@ var esquema =  new Schema(
         ImagenMotorista: String,
         Observacion: String,
         OrdenesTomadas: [{type: mongoose.Schema.Types.ObjectId, ref:'pruebaOrden'}],
-        Telefono: String
+        Telefono: String,
+        Aprobado: Boolean
     }
 );
 
