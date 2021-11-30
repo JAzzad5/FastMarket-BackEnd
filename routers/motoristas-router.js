@@ -70,7 +70,7 @@ router.put('/:idMotorista/Editar', function( req, res ){
             Estado: req.body.Estado,
             ImagenMotorista: req.body.ImagenMotorista,
             Telefono: req.body.Telefono,
-            Aprobado: req.body.Aprobado
+            Placa: req.body.Placa
         }
     })
     .then(result=>{

@@ -58,5 +58,19 @@ router.put('/:idProducto/editar', function( req, res ){
     })
 });
 
+//eliminar producto
+router.delete('/:idProducto/eliminar', function( req, res ){
+    productos.remove({
+            _id: req.params.idProducto
+        })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
 
 module.exports = router;

@@ -281,4 +281,18 @@ router.put('/:idUsuario/limpiarCarrito', function( req, res ){
 });
 
 
+//Obtener contraseña usuario para login
+router.get('/:Correo/login', function( req, res ){
+    usuario.find({
+        Correo: req.params.Correo
+    },{Contraseña:true})
+    .then(result=>{
+        res.send(result[0]);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
 module.exports = router;
