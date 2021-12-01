@@ -142,5 +142,18 @@ router.put('/:idMotorista/Aprobar', function( req, res ){
     })
 });
 
+//login motorista
+router.get('/:Correo/login', function( req, res ){
+    motorista.find({Correo: req.params.Correo},
+        {Contraseña:true, Aprobado:true })
+    .then( result =>{
+        res.send(result);
+        res.end();
+    })
+    .catch( error =>{
+        res.send(error);
+        res.end();
+    });
+});
 module.exports = router;
 
