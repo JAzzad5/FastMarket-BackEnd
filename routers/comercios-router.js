@@ -30,9 +30,9 @@ router.post('/nuevo', function( req, res ){
         Horario:req.body.HoraInicio + ' - ' + req.body.HoraFinal,
         Productos: [],
         Ubicacion: {
-            lat:0,
-            lon:0,
-            NombreUbicacion: ""
+            lat:req.body.lat,
+            lon:req.body.lon,
+            NombreUbicacion:req.body.NombreUbicacion
         }
     })
     .then(result=>{
