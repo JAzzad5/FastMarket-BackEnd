@@ -114,9 +114,29 @@ router.put('/:idComercio/editar', function( req, res ){
             Calificacion : req.body.Calificacion,
             Direccion : req.body.Direccion,
             CostoEnvio : req.body.CostoEnvio,
-            Horario : req.body.HoraInicio + " - " + req.body.HoraFinal
+            Horario : req.body.HoraInicio + " - " + req.body.HoraFinal,
+            Ubicacion: {
+                lat:req.body.lat,
+                lon:req.body.lon,
+                NombreUbicacion:req.body.NombreUbicacion
+                }
             }
     })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
+
+//eliminar comercio
+router.delete('/:idComercio/eliminar', function( req, res ){
+    comercios.deleteOne({
+            _id: req.params.idComercio
+        })
     .then(result=>{
         res.send(result);
         res.end()

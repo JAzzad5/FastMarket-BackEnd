@@ -60,7 +60,7 @@ router.put('/:idProducto/editar', function( req, res ){
 
 //eliminar producto
 router.delete('/:idProducto/eliminar', function( req, res ){
-    productos.remove({
+    productos.deleteOne({
             _id: req.params.idProducto
         })
     .then(result=>{
