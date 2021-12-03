@@ -155,5 +155,20 @@ router.get('/:Correo/login', function( req, res ){
         res.end();
     });
 });
+
+//eliminar motorista
+router.delete('/:idMotorista/eliminar', function( req, res ){
+    motorista.deleteOne({
+            _id: req.params.idMotorista
+        })
+    .then(result=>{
+        res.send(result);
+        res.end()
+    })
+    .catch(error=>{
+        res.send(error);
+        res.end()
+    })
+});
 module.exports = router;
 

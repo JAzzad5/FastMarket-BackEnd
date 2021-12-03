@@ -235,7 +235,7 @@ router.post('/nuevo', function( req, res ){
         Correo: req.body.Correo,
         Telefono: req.body.Telefono,
         Contraseña: req.body.Contraseña,
-        ImagenUsuario:"",
+        ImagenUsuario:"default.png",
         Ubicacion: {
             lat:"",
             lon:"",
